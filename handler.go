@@ -1,7 +1,6 @@
 package urlshort
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v2"
 	"net/http"
 )
@@ -47,11 +46,8 @@ func YAMLHandler(yml []byte, fallback http.Handler) (http.HandlerFunc, error) {
 		return nil, error
 	}
 	handler := func(w http.ResponseWriter, req *http.Request) {
-		fmt.Println(req.URL.Path)
 		for _, url := range values {
-			fmt.Println(req.URL.Path)
 			if url.Url == req.URL.Path {
-				fmt.Println("match")
 				http.Redirect(w, req, url.Path, http.StatusMovedPermanently)
 				return
 			}
